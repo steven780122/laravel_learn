@@ -3,29 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Post; // 從這邊拿model
 
 class PostController extends Controller
 {
     // 列表
     public function index()
     {
-        // 傳入title array:
-        $posts = [
-            [
-                "title" => "this is title1"
-            ],
-            [
-                "title" => "this is title2"
-            ],
-            [
-                "title" => "this is title3"
-            ]
-        ];
+        // 從DB 讀取
+        $posts = Post::orderBy('created_at', 'desc')->get();
+        return view("post/index", compact("posts"));
 
-        $topics = [];
+
+        // 傳入title array:
+        // $posts = [
+        //     [
+        //         "title" => "this is title1"
+        //     ],
+        //     [
+        //         "title" => "this is title2"
+        //     ],
+        //     [
+        //         "title" => "this is title3"
+        //     ]
+        // ];
+
+        // $topics = [];
 
         // return view("post/index", ["posts" => $posts]);   // 要在view 新增post/index.blade.php    , 之後可能會有第2個參數
-        return view("post/index", compact("posts", "topics"));   // 因為推薦名字相同，所以推薦使用改用php的compact!!
+        // return view("post/index", compact("posts", "topics"));   // 因為推薦名字相同，所以推薦使用改用php的compact!!
     }
 
     // 某個文章詳情
