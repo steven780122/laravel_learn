@@ -42,7 +42,12 @@
                 <h2 class="blog-post-title"><a href="/posts/{{$post->id}}" >{{$post->title}}</a></h2>
                 <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}}<a href="/user/5">Kassandra Ankunding2</a></p>
 
-                <p>{{$post->content}}</p>
+
+                {{--  下方是讀取DB content但是改為限制個數  參數是指   來源、字數限制、超過顯示--}}
+                <p>{{str_limit($post->content, 100, '...')}}</p>
+                {{--  下方是原本讀取DB的content  --}}
+                {{--  <p>{{$post->content}}</p>  --}}
+                {{--  下方是原本寫死  --}}
                 {{--  <p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好...  --}}
                 <p class="blog-post-meta">贊 0  | 評論 0</p>
             </div>
@@ -54,10 +59,11 @@
                     <li class="disabled"><span>&laquo;</span></li>
 
 
+                        {{$posts->links()}}
 
 
 
-                                                                        <li class="active"><span>1</span></li>
+                                                                        {{--  <li class="active"><span>1</span></li>
                                                                                 <li><a href="http://127.0.0.1:8000/posts?page=2">2</a></li>
                                                                                 <li><a href="http://127.0.0.1:8000/posts?page=3">3</a></li>
                                                                                 <li><a href="http://127.0.0.1:8000/posts?page=4">4</a></li>
@@ -69,7 +75,7 @@
                                                                                 <li><a href="http://127.0.0.1:8000/posts?page=10">10</a></li>
 
 
-                    <li><a href="http://127.0.0.1:8000/posts?page=2" rel="next">&raquo;</a></li>
+                    <li><a href="http://127.0.0.1:8000/posts?page=2" rel="next">&raquo;</a></li>  --}}
             </ul>
 
         </div><!-- /.blog-main -->

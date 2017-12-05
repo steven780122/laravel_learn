@@ -11,7 +11,11 @@ class PostController extends Controller
     public function index()
     {
         // 從DB 讀取
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        // $posts = Post::orderBy('created_at', 'desc')->get();
+
+        // 想用芬頁
+        
+        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
         return view("post/index", compact("posts"));
 
 
@@ -27,6 +31,7 @@ class PostController extends Controller
         //         "title" => "this is title3"
         //     ]
         // ];
+        
 
         // $topics = [];
 
@@ -35,9 +40,10 @@ class PostController extends Controller
     }
 
     // 某個文章詳情
-    public function show()
+    public function show(Post $post)    // Post是指從route那邊的傳參
     {
-        return view("post/show", ["title" => "this is title", "isShow" => false]);    // 帶參數到view那邊顯示
+        return view("post/show", compact("post"));    // 改為從routes那邊帶參數來
+        // return view("post/show", ["title" => "this is title", "isShow" => false]);    // 帶參數到view那邊顯示
     }
 
     // 創建頁面
@@ -49,7 +55,34 @@ class PostController extends Controller
     // 創建邏輯    
     public function store()
     {
-        return;    //還沒寫也要先';'
+        // 以下可以測試拿到的request值
+        // dd(request()->all());   // 用all() 只會列出token + post欄位資訊等
+        // dd(request());   // 也可以中間帶欄位(如果全部就這樣)
+        // dd(\Request::all());
+
+        // 以下可以示範一些拿到數據庫的方法
+        // 法一: 之前在tinker的方法:
+        // $post = new Post();
+        // $post->title = request('title');
+        // $post->content = request('content');
+        // $post->save();
+
+
+        // 法二: 用create
+        // $params = ['title' => request('title'), 'content' => request('content')];
+        // Post::create($params);
+
+        // 法三: 用create()接request
+        // $params = request(['title', 'content']);    // 其實這跟法二是一樣的，但簡短很多好看很多
+        // Post::create($params);
+
+        // 法四: 乾脆寫成一列
+        $post = Post::create(request(['title', 'content']));
+        // dd($post);   //會發現會有問題>> 是因為只要post
+
+
+        return redirect('posts');   //redirect是到url不是田view的路徑喔!
+        // return;    //還沒寫也要先';'
     }
 
      // 編輯頁面

@@ -5,24 +5,25 @@
         <div class="blog-post">
             <div style="display:inline-flex">
                     <!-- <h2 class="blog-post-title">你好你好</h2>     -->
-                    <h2 class="blog-post-title">{{$title}}</h2>      <!-- 帶參數的寫法 -->
+                    {{--  <h2 class="blog-post-title">{{$title}}</h2>      <!-- 帶參數的寫法 -->  --}}
+                    <h2 class="blog-post-title">{{$post->title}}</h2>      <!-- 綁定post傳參的寫法 -->
                                        
                     <!-- 以下是編輯標籤，如我果用controller的isShow控制是否顯示: -->
-                    @if($isShow == true)
-                    <a style="margin: auto"  href="/posts/62/edit">
+                    {{--  @if($isShow == true)  --}}
+                        <a style="margin: auto"  href="/posts/{{$post->id}}/edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    @endif
-                                                            <a style="margin: auto"  href="/posts/62/delete">
+                    {{--  @endif  --}}
+                        <a style="margin: auto"  href="/posts/{{$post->id}}/delete">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                                 </div>
 
-            <p class="blog-post-meta">May 14, 2017 by <a href="#">Kassandra Ankunding2</a></p>
+            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Kassandra Ankunding2</a></p>
 
-            <p><p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好<img src="http://127.0.0.1:8000/storage/72c76b674ec8793fcfd6555ff371bfbd/nxC9ozLfkORmoY92q9lPsejXchVvdNO2cwHiR2Jf.jpeg" alt="63" style="max-width: 100%;">你好你好似懂非懂說</p><p><br></p></p>
+            <p>{{$post->content}}</p>
             <div>
-                                    <a href="/posts/62/zan" type="button" class="btn btn-primary btn-lg">贊</a>
+                <a href="/posts/62/zan" type="button" class="btn btn-primary btn-lg">贊</a>
 
             </div>
         </div>
